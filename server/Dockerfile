@@ -8,4 +8,4 @@ RUN npm install && npm install -g @nestjs/cli
 
 EXPOSE 3001
 
-ENTRYPOINT ["npm", "run", "start:dev"]
+# ENTRYPOINT ["npm", "run", "start:dev"]
