@@ -15,12 +15,15 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
   useEffect(() => {
     axios.get(`http://localhost:3001/cards/${id}`).then((response) => {
       console.log('response.data', response.data);
-      const prepDetail: CardDetailsI = {
-        title: response.data?.title ?? "",
-        description: response.data?.description ?? "",
-        images: response.data?.images ?? [""]
+      if (response.data?.id) {
+        const prepDetail: CardDetailsI = {
+          id: response.data.id,
+          title: response.data?.title ?? "",
+          description: response.data?.description ?? "",
+          images: response.data?.images ?? [""]
+        }
+        setDetails(prepDetail)
       }
-      setDetails(prepDetail)
     })
   }, [])
 
@@ -39,6 +42,7 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
 
     if (details) {
       const tempDetails: CardDetailsI = {
+        id: details.id,
         title: val.currentTarget.value,
         description: details.description,
         images: details.images
@@ -53,6 +57,7 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
 
     if (details) {
       const tempDetails: CardDetailsI = {
+        id: details.id,
         title: details.title,
         description: val.currentTarget.value,
         images: details.images
@@ -62,14 +67,16 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
     }
   }
 
-  const handleSubmit = () => {
-    axios.post(`http://localhost:3001/cards/${id}`,
+  const handleUpdate = () => {
+    if (details) {
+      axios.post(`http://localhost:3001/cards/${id}`,
       {
-        data: details
+        card: details
       }
-    ).then((response) => {
-      console.log('submitted', response.data);
-    })
+      ).then((response) => {
+        console.log('submitted', response.data);
+      })
+    }
 
     closeModal()
   }
@@ -100,7 +107,7 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>Close</Button>
-          { (editTitle || editDescription) && <Button variant="primary" onClick={handleSubmit}>Save</Button> }
+          { (editTitle || editDescription) && <Button variant="primary" onClick={handleUpdate}>Save</Button> }
         </Modal.Footer>
       </Modal>
     ) : <></>
