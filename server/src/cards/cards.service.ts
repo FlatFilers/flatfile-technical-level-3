@@ -16,4 +16,12 @@ export class CardsService {
     card.section_id = sectionId
     return this.cardsRepository.save(card)
   }
+
+  findOne(id: number): Promise<CardEntity> {
+    return this.cardsRepository.findOne({
+      where: {
+        id,
+      }
+    })
+  }
 }

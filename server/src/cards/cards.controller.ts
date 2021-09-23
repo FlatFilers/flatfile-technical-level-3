@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post } from '@nestjs/common'
+import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common'
 import { CardEntity } from '../entities/Card'
 import { CardsService } from './cards.service'
 
@@ -13,5 +13,12 @@ export class CardsController {
     this.logger.log('POST /cards')
 
     return this.cardsService.create(card)
+  }
+
+  @Get(':id')
+  getCard(@Param('id') id: number): Promise<CardEntity> {
+    this.logger.log(`GET /cards/${id}`)
+
+    return this.cardsService.findOne(id)
   }
 }
