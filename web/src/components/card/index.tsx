@@ -19,6 +19,7 @@ const CardTitle = styled.div``
 function Card({ card: { title, id } }: { card: { title: string, id: number } }): JSX.Element {
     
     const [modal, setModal] = useState<boolean>(false)
+    const [cardTitle, setCardTitle] = useState<string>(title)
 
     const openModal = () => {
         setModal(true)
@@ -28,10 +29,14 @@ function Card({ card: { title, id } }: { card: { title: string, id: number } }):
         setModal(false)
     }
 
+    const handleCardTitle = (val: string) => {
+        setCardTitle(val)
+    }
+
     return (
         <CardContainer className='card' onClick={openModal}>
-            <CardTitle>{title}</CardTitle>
-            { modal && <CardModal id={id} open={modal} handleModal={closeModal}/> }
+            <CardTitle>{cardTitle}</CardTitle>
+            { modal && <CardModal id={id} open={modal} handleModal={closeModal} handleTitle={handleCardTitle}/> }
         </CardContainer>
     )
 }

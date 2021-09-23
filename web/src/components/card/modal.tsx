@@ -4,7 +4,7 @@ import { Button, Modal } from 'react-bootstrap'
 import CardDetailsI from '../../types/card-details'
 
 
-const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handleModal: any }): JSX.Element => {
+const CardModal = ({ id, open, handleModal, handleTitle }: { id: number, open: boolean, handleModal: any, handleTitle: any }): JSX.Element => {
 
   const [details, setDetails] = useState<CardDetailsI>()
   
@@ -25,13 +25,13 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
         setDetails(prepDetail)
       }
     })
-  }, [])
+  }, [id])
 
   useEffect(() => {
     if (!modal) {
       handleModal()
     }
-  }, [modal])
+  }, [modal, handleModal])
 
   const closeModal = () => {
     setModal(false)
@@ -75,6 +75,7 @@ const CardModal = ({ id, open, handleModal }: { id: number, open: boolean, handl
       }
       ).then((response) => {
         console.log('submitted', response.data);
+        handleTitle(response.data.title);
       })
     }
 

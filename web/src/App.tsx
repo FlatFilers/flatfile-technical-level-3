@@ -42,7 +42,7 @@ function App() {
       let sectionsClone: SectionI[] = [...sections]
       for (let i = 0; i < sectionsClone.length; i++) {
         let section: SectionI = sectionsClone[i]
-        if (section.id == sectionId) {
+        if (section.id === sectionId) {
           section.cards.push({
             id: response.data.id,
             title: response.data.title,
@@ -57,7 +57,7 @@ function App() {
   return (
     <BoardContainer>
       {sections.map((section: SectionI) => {
-        return <Section section={section} onCardSubmit={onCardSubmit}></Section>
+        return <Section section={section} onCardSubmit={onCardSubmit} key={section.id+section.title}></Section>
       })}
     </BoardContainer>
   )
