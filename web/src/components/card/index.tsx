@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import styled from 'styled-components'
+import { CardModal } from './modal'
 
 const CardContainer = styled.div`
   border-radius: 3px;
@@ -14,10 +16,25 @@ const CardContainer = styled.div`
 
 const CardTitle = styled.div``
 
-const Card = ({ card: { title } }: any) => (
-  <CardContainer className='card'>
-    <CardTitle>{title}</CardTitle>
-  </CardContainer>
-)
+function Card({ card: { title, id } }: { card: { title: string, id: number } }): JSX.Element {
+    
+    const [modal, setModal] = useState<boolean>(false)
+
+    const openModal = () => {
+        setModal(true)
+    }
+
+    const closeModal = () => {
+        setModal(false)
+    }
+
+    return (
+        <CardContainer className='card' onClick={openModal}>
+            <CardTitle>{title}</CardTitle>
+            { modal && <CardModal id={id} open={modal} handleModal={closeModal}/> }
+        </CardContainer>
+    )
+}
+
 
 export default Card

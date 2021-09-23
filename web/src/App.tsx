@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Section from './components/section'
 import SectionI from './types/section'
@@ -30,7 +31,7 @@ function App() {
       const sortedSections = response.data.sort((a: SectionI, b: SectionI) => a.id - b.id)
       setSections(sortedSections)
     })
-  })
+  }, [])
 
   const onCardSubmit = (sectionId: number, title: string) => {
     axios({
