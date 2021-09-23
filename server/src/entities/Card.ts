@@ -1,13 +1,17 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { SectionEntity } from './Section'
+import { ImageEntity } from './Image'
 
 @Entity({ name: 'cards' })
 export class CardEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column({default: ""})
   title: string
+
+  @Column({default: ""})
+  description: string
 
   @Column({ name: 'section_id' })
   section_id: number
@@ -15,4 +19,8 @@ export class CardEntity {
   @ManyToOne(() => SectionEntity, (section) => section.cards)
   @JoinColumn({ name: 'section_id' })
   section: SectionEntity
+
+  @OneToMany(() => ImageEntity, (image) => image.card)
+  @JoinColumn({ referencedColumnName: 'card_id' })
+  images: ImageEntity[]
 }

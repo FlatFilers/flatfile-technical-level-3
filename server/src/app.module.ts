@@ -10,6 +10,7 @@ import { CardEntity } from './entities/Card'
 import { CardsService } from './cards/cards.service'
 import { SectionEntity } from './entities/Section'
 import { SectionsService } from './sections/sections.service'
+import { ImageEntity } from './entities/Image'
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { SectionsService } from './sections/sections.service'
       database: 'technical',
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([CardEntity, SectionEntity]),
+    TypeOrmModule.forFeature([CardEntity, SectionEntity, ImageEntity]),
   ],
   controllers: [AppController, SectionsController, CardsController],
   providers: [AppService, CardsService, SectionsService],

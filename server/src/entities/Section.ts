@@ -6,7 +6,7 @@ export class SectionEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column({default: ""})
   title: string
 
   @OneToMany(() => CardEntity, (card) => card.section)
