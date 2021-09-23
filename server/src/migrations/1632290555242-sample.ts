@@ -5,7 +5,9 @@ export class sample1632290555242 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.addColumn("cards", new TableColumn({
             name: "description",
-            type: "varchar"
+            type: "varchar",
+            default: null,
+            isNullable: true
         }))
 
         await queryRunner.createTable(new Table({
@@ -18,7 +20,7 @@ export class sample1632290555242 implements MigrationInterface {
                 },
                 {
                     name: "url",
-                    type: "varchar"
+                    type: "varchar",
                 },
                 {
                     name: "upload_date",

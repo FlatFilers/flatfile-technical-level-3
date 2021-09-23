@@ -10,7 +10,7 @@ export class CardEntity {
   @Column({default: ""})
   title: string
 
-  @Column({default: ""})
+  @Column({default: null, nullable: true})
   description: string
 
   @Column({ name: 'section_id' })
