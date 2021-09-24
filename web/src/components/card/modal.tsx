@@ -111,7 +111,8 @@ const CardModal = ({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body onClick={() => setEditDescription(true)}>
-        <label> Description </label>
+        <label> Description: </label>
+        <br />
         {editDescription ? (
           <textarea
             value={details.description}
@@ -126,7 +127,7 @@ const CardModal = ({
         {images &&
           images.map((image) => (
             <img
-              key={`image_${id}`}
+              key={image}
               src={`http://localhost:3001/images/path/${image}`}
               alt=''
               width='120'
