@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { SectionEntity } from './Section'
 import { ImageEntity } from './Image'
 
@@ -7,10 +15,10 @@ export class CardEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({default: ""})
+  @Column({ default: '' })
   title: string
 
-  @Column({default: null, nullable: true})
+  @Column({ default: null, nullable: true })
   description: string
 
   @Column({ name: 'section_id' })

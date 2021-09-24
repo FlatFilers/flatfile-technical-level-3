@@ -10,7 +10,15 @@ export class CardsService {
     private cardsRepository: Repository<CardEntity>
   ) {}
 
-  create({ sectionId, title, description }: { sectionId: number; title: string; description: string }): Promise<CardEntity> {
+  create({
+    sectionId,
+    title,
+    description,
+  }: {
+    sectionId: number
+    title: string
+    description: string
+  }): Promise<CardEntity> {
     let card = new CardEntity()
     card.title = title
     card.section_id = sectionId
@@ -22,11 +30,19 @@ export class CardsService {
     return this.cardsRepository.findOne({
       where: {
         id,
-      }
+      },
     })
   }
 
-  update({ id, title, description }: { id: number, title: string, description: string }): Promise<CardEntity> {
-    return this.cardsRepository.save({id, title, description})
+  update({
+    id,
+    title,
+    description,
+  }: {
+    id: number
+    title: string
+    description: string
+  }): Promise<CardEntity> {
+    return this.cardsRepository.save({ id, title, description })
   }
 }

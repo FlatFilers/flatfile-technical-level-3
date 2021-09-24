@@ -9,7 +9,9 @@ export class CardsController {
   constructor(private cardsService: CardsService) {}
 
   @Post()
-  addCard(@Body() card: { sectionId: number; title: string; description: string }): Promise<CardEntity> {
+  addCard(
+    @Body() card: { sectionId: number; title: string; description: string }
+  ): Promise<CardEntity> {
     this.logger.log('POST /cards')
 
     return this.cardsService.create(card)
@@ -23,9 +25,11 @@ export class CardsController {
   }
 
   @Post(':id')
-  updateCard(@Body('card') card: { id: number, title: string, description: string }): Promise<CardEntity> {
+  updateCard(
+    @Body('card') card: { id: number; title: string; description: string }
+  ): Promise<CardEntity> {
     this.logger.log(`POST /cards/${card.id}`)
 
-    return this.cardsService.update(card);
+    return this.cardsService.update(card)
   }
 }
