@@ -11,6 +11,8 @@ import { CardsService } from './cards/cards.service'
 import { SectionEntity } from './entities/Section'
 import { SectionsService } from './sections/sections.service'
 import { ImageEntity } from './entities/Image'
+import { ImagesController } from './images/images.controller'
+import { ImagesService } from './images/images.service'
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { ImageEntity } from './entities/Image'
     }),
     TypeOrmModule.forFeature([CardEntity, SectionEntity, ImageEntity]),
   ],
-  controllers: [AppController, SectionsController, CardsController],
-  providers: [AppService, CardsService, SectionsService],
+  controllers: [AppController, SectionsController, CardsController, ImagesController],
+  providers: [AppService, CardsService, SectionsService, ImagesService],
 })
 export class AppModule {}
