@@ -28,7 +28,6 @@ export class ImagesController {
   ))
   uploadFile(@UploadedFiles() files: Array<Express.Multer.File>, @Param('card_id') card_id: number): Promise<ImageEntity[]> {
     this.logger.log(`POST /images/${card_id}/upload`)
-    this.logger.log(files[0])
 
     return this.imagesService.create({files, card_id});
   }

@@ -15,7 +15,6 @@ const CardModal = ({ id, open, handleModal, handleTitle }: { id: number, open: b
 
   useEffect(() => {
     axios.get(`http://localhost:3001/cards/${id}`).then((response) => {
-      console.log('response.data', response.data);
       const prepDetail: CardDetailsI = {
         id: response.data.id,
         title: response.data?.title ?? "",
@@ -26,7 +25,6 @@ const CardModal = ({ id, open, handleModal, handleTitle }: { id: number, open: b
     })
 
     axios.get(`http://localhost:3001/images/${id}`).then((response) => {
-      console.log('response.data', response.data);
       if (response.data && response.data.length) {
         setImages(response.data.map((item: any) => item.name))
       }
@@ -79,7 +77,6 @@ const CardModal = ({ id, open, handleModal, handleTitle }: { id: number, open: b
           card: details
         }
       ).then((response) => {
-        console.log('submitted', response.data);
         handleTitle(response.data.title);
       })
     }

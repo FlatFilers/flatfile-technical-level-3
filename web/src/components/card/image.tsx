@@ -5,15 +5,12 @@ const Uploader = ({ id }: { id: number }): JSX.Element => {
   const [images, setImages] = useState<FileList>()
 
   const handleImageInput = (val: ChangeEvent<HTMLInputElement>) => {
-    console.log(val.target.files)
     if (val.target.files && val.target.files.length < 4) {
       setImages(val.target.files)
     }
   }
 
   const handleSubmit = (val: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log('images', images)
-
     if (images) {
       const formData = new FormData()
     
