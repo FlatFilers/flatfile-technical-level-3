@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import React, { ChangeEvent, useState } from 'react'
 
 const Uploader = ({ id }: { id: number }): JSX.Element => {
@@ -13,7 +13,7 @@ const Uploader = ({ id }: { id: number }): JSX.Element => {
   const handleSubmit = (val: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (images) {
       const formData = new FormData()
-    
+
       for (let i = 0; i < images.length; i++) {
         formData.append('files', images[i])
       }
@@ -27,14 +27,22 @@ const Uploader = ({ id }: { id: number }): JSX.Element => {
   }
 
   return (
-      <form>
-        <label>
-          Upload Image: &nbsp;
-          <input type="file" id={`file-${id}`} accept="image/png, image/jpeg" multiple onChange={(event) => handleImageInput(event)} />
-        </label>
-        <button type="button" onClick={(event) => handleSubmit(event)}>Upload</button>
-      </form>
+    <form>
+      <label>
+        Upload Image: &nbsp;
+        <input
+          type='file'
+          id={`file-${id}`}
+          accept='image/png, image/jpeg'
+          multiple
+          onChange={(event) => handleImageInput(event)}
+        />
+      </label>
+      <button type='button' onClick={(event) => handleSubmit(event)}>
+        Upload
+      </button>
+    </form>
   )
-};
+}
 
-export { Uploader };
+export { Uploader }

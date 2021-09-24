@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Section from './components/section'
 import SectionI from './types/section'
@@ -57,7 +57,13 @@ function App() {
   return (
     <BoardContainer>
       {sections.map((section: SectionI) => {
-        return <Section section={section} onCardSubmit={onCardSubmit} key={section.id+section.title}></Section>
+        return (
+          <Section
+            section={section}
+            onCardSubmit={onCardSubmit}
+            key={section.id + section.title}
+          ></Section>
+        )
       })}
     </BoardContainer>
   )
