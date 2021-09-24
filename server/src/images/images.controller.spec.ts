@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { ImageEntity } from 'src/entities/Image'
 import { Repository } from 'typeorm'
+import { ImageEntity } from '../entities/Image'
 import { ImagesController } from './images.controller'
 import { ImagesService } from './images.service'
 
@@ -37,5 +37,13 @@ describe('ImagesController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined()
+  })
+
+  it('should call get images in repository', async () => {
+    const images: ImageEntity[] = []
+    jest.spyOn(service, 'find').mockImplementation(() => Promise.resolve(images))
+    expect(
+      await controller.findFiles(1)
+    ).toHaveLength(0)
   })
 })
