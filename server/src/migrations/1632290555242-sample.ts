@@ -16,10 +16,11 @@ export class sample1632290555242 implements MigrationInterface {
                 {
                     name: "id",
                     type: "int",
-                    isPrimary: true
+                    isPrimary: true,
+                    isGenerated: true
                 },
                 {
-                    name: "url",
+                    name: "name",
                     type: "varchar",
                 },
                 {

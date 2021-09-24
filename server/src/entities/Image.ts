@@ -7,7 +7,7 @@ export class ImageEntity {
   id: number
 
   @Column({default: ""})
-  image: string
+  name: string
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
   upload_date: Date;
