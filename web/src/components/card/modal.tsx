@@ -32,10 +32,10 @@ const CardModal = ({
       setDetails(prepDetail)
       handleTitle(prepDetail.title)
     })
-
+ 
     axios.get(`http://localhost:3001/images/${id}`).then((response) => {
       if (response.data && response.data.length) {
-        setImages(response.data.map((item: any) => item.name))
+        setImages(response.data.map((item: any) => item.name).filter((item: any) => !!item))
       }
     })
   }, [id, handleTitle])
@@ -125,16 +125,15 @@ const CardModal = ({
 
         <br />
         {images &&
-          images.map((image) => (
-            <img
-              key={image}
+          images.map((image) => <img
+              key={`${image}_${id}`}
               src={`http://localhost:3001/images/path/${image}`}
               alt=''
               width='120'
               height='120'
               style={{ padding: '2px' }}
             />
-          ))}
+          )}
         <Uploader id={id} />
       </Modal.Body>
       <Modal.Footer>
