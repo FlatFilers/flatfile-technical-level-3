@@ -7,6 +7,7 @@ import Section from './components/section'
 import SectionI from './types/section'
 
 import './App.css'
+import { title } from 'process'
 
 export const BoardContainer = styled.div`
   background-color: rgb(49, 121, 186);
@@ -39,48 +40,44 @@ function App() {
     if (source.droppableId === destination.droppableId && destination.index === source.index)
       return null
 
-      const start = sections[Number(source.droppableId)]
-      const end = sections[Number(destination.droppableId)]
+    const start = sections[Number(source.droppableId)]
+    const end = sections[Number(destination.droppableId)]
 
-      if (start === end){
-        const newCards= start.cards.filter((_: any, idx: number) => idx !== source.index)
+    if (start === end) {
+      const newCards = start.cards.filter((_: any, idx: number) => idx !== source.index)
 
-        newCards.splice(destination.index, 0, start.cards[source.index])
+      newCards.splice(destination.index, 0, start.cards[source.index])
 
-        const newSection = {
-          id: start.id,
-          cards: newCards
-        }
-
-        setSections(state => ({...state, [newSection.id]: newSection}))
-        return null 
-      } else {
-        const newStartCards = start.cards.filter(
-          (_: any, idx: number) => idx !== source.index
-        )
-        const newStartSection = {
-          id: start.id,
-          cards: newStartCards
-        }
-
-        const newEndCards = end.cards
-        newEndCards.splice(destination.index, 0, start.cards[source.index])
-
-        const newEndSection = {
-          id: end.id,
-          cards: newEndCards
-        }
-
-        setSections(state => ({
-          ...state,
-          [newStartSection.id]: newStartSection,
-          [newEndSection.id]: newEndSection
-        }))
-return null
-        
+      const newSection = {
+        id: start.id,
+        cards: newCards,
+        title: title
       }
-    }
 
+      setSections((state) => ({ ...state, [newSection.id]: newSection }))
+      return null
+    } else {
+      const newStartCards = start.cards.filter((_: any, idx: number) => idx !== source.index)
+      const newStartSection = {
+        id: start.id,
+        cards: newStartCards,
+        title: title
+      }
+
+      const newEndCards = end.cards
+      newEndCards.splice(destination.index, 0, start.cards[source.index])
+
+      const newEndSection = {
+        id: end.id,
+        cards: newEndCards,
+        title: title
+      }
+
+      setSections((state) => ({...state, [newStartSection.id]: newStartSection, [newEndSection.id]: newEndSection
+      }))
+      return null
+    }
+  }
 
   const onCardSubmit = (sectionId: number, title: string) => {
     axios({
