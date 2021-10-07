@@ -32,35 +32,23 @@ function App() {
       setSections(sortedSections)
     })
   })
-  const onDragEnd = ({ source, destination }: DropResult) => {
-    if (destination === undefined || destination === null) return null
 
-    if (source.droppableId === destination.droppableId && destination.index === source.index)
-      return null
+  const reorder = (list: SectionI[], startIndex: number, endIndex: number): SectionI[] => {
+    const result = Array.from(list)
+    const [removed] = result.splice(startIndex, 1)
+    result.splice(endIndex, 0, removed)
 
-      const start = sections[Number(source.droppableId)]
-      const end = sections[Number(destination.droppableId)]
+    return result
+  }
+  const onDragEnd = (result: DropResult): void => {
+    // dropped outside the list
+    if (!result.destination) {
+      return
+    }
 
-      if (start === end){
-        const newCards= start.cards.filter((_: any, idx: number) => idx !== source.index)
+    const items: SectionI[] = reorder(sections, result.source.index, result.destination.index)
 
-        newCards.splice(destination.index, 0, start.cards[source.index])
-
-        const newSection = {
-          id: start.id,
-          cards: newCards
-        }
-
-        setSections(newSection[newSection.id])
-        return null 
-      } else {
-        const newStartCards = start.cards.filter(
-          (_: any, idx: number) => idx !== source.index
-        )
-      }
-   
-
-    
+    setSections(items)
   }
 
   const onCardSubmit = (sectionId: number, title: string) => {
