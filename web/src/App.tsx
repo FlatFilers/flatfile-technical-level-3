@@ -24,10 +24,7 @@ export const BoardContainer = styled.div`
 
 function App() {
   const [sections, setSections] = useState<SectionI[]>([])
-  interface IMoveResult {
-    droppable: SectionI[]
-    droppable2: SectionI[]
-  }
+
   useEffect(() => {
     axios.get('http://localhost:3001/sections').then((response) => {
       // Section order is determined by ID so sort by ID
@@ -35,14 +32,37 @@ function App() {
       setSections(sortedSections)
     })
   })
-  const onDragEnd = ({}: DropResult) => {}
+  const onDragEnd = ({ source, destination }: DropResult) => {
+    if (destination === undefined || destination === null) return null
 
-  const move = (
-    source: SectionI[],
-    destination: SectionI[],
-    droppableSource: DraggableLocation,
-    droppableDestination: DraggableLocation
-  ): IMoveResult | any => {}
+    if (source.droppableId === destination.droppableId && destination.index === source.index)
+      return null
+
+      const start = sections[Number(source.droppableId)]
+      const end = sections[Number(destination.droppableId)]
+
+      if (start === end){
+        const newCards= start.cards.filter((_: any, idx: number) => idx !== source.index)
+
+        newCards.splice(destination.index, 0, start.cards[source.index])
+
+        const newSection = {
+          id: start.id,
+          cards: newCards
+        }
+
+        setSections(newSection[newSection.id])
+        return null 
+      } else {
+        const newStartCards = start.cards.filter(
+          (_: any, idx: number) => idx !== source.index
+        )
+      }
+   
+
+    
+  }
+
   const onCardSubmit = (sectionId: number, title: string) => {
     axios({
       method: 'post',
