@@ -32,7 +32,7 @@ const Section = ({
 
   return (
     <Wrapper>
-      <Droppable droppableId={id.toString()}>
+      <Droppable droppableId={title}>
         {(provided) => (
           <WrappedSection>
             <SectionHeader>
