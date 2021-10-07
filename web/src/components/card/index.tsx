@@ -16,7 +16,7 @@ const CardContainer = styled.div`
 const CardTitle = styled.div``
 
 const Card = ({ card: { title, id } }: any) => (
-  <Draggable draggableId={id} index={1}>
+  <Draggable draggableId={id.toString()} index={1}>
     {(provided) => (
       <CardContainer
         className='card'
@@ -26,6 +26,7 @@ const Card = ({ card: { title, id } }: any) => (
       >
         <CardTitle>{title}</CardTitle>
       </CardContainer>
+      
     )}
   </Draggable>
 )
