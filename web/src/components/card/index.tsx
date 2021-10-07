@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Draggable } from 'react-beautiful-dnd'
 
 const CardContainer = styled.div`
   border-radius: 3px;
@@ -14,10 +15,19 @@ const CardContainer = styled.div`
 
 const CardTitle = styled.div``
 
-const Card = ({ card: { title } }: any) => (
-  <CardContainer className='card'>
-    <CardTitle>{title}</CardTitle>
-  </CardContainer>
+const Card = ({ card: { title, id } }: any) => (
+  <Draggable draggableId={id} index={1}>
+    {(provided) => (
+      <CardContainer
+        className='card'
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        <CardTitle>{title}</CardTitle>
+      </CardContainer>
+    )}
+  </Draggable>
 )
 
 export default Card
