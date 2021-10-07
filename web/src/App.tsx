@@ -33,23 +33,54 @@ function App() {
     })
   })
 
-  const reorder = (list: SectionI[], startIndex: number, endIndex: number): SectionI[] => {
-    const result = Array.from(list)
-    const [removed] = result.splice(startIndex, 1)
-    result.splice(endIndex, 0, removed)
+  const onDragEnd = ({ source, destination }: DropResult) => {
+    if (destination === undefined || destination === null) return null
 
-    return result
-  }
-  const onDragEnd = (result: DropResult): void => {
-    // dropped outside the list
-    if (!result.destination) {
-      return
+    if (source.droppableId === destination.droppableId && destination.index === source.index)
+      return null
+
+      const start = sections[Number(source.droppableId)]
+      const end = sections[Number(destination.droppableId)]
+
+      if (start === end){
+        const newCards= start.cards.filter((_: any, idx: number) => idx !== source.index)
+
+        newCards.splice(destination.index, 0, start.cards[source.index])
+
+        const newSection = {
+          id: start.id,
+          cards: newCards
+        }
+
+        setSections(state => ({...state, [newSection.id]: newSection}))
+        return null 
+      } else {
+        const newStartCards = start.cards.filter(
+          (_: any, idx: number) => idx !== source.index
+        )
+        const newStartSection = {
+          id: start.id,
+          cards: newStartCards
+        }
+
+        const newEndCards = end.cards
+        newEndCards.splice(destination.index, 0, start.cards[source.index])
+
+        const newEndSection = {
+          id: end.id,
+          cards: newEndCards
+        }
+
+        setSections(state => ({
+          ...state,
+          [newStartSection.id]: newStartSection,
+          [newEndSection.id]: newEndSection
+        }))
+return null
+        
+      }
     }
 
-    const items: SectionI[] = reorder(sections, result.source.index, result.destination.index)
-
-    setSections(items)
-  }
 
   const onCardSubmit = (sectionId: number, title: string) => {
     axios({
