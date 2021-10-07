@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { DragDropContext, DraggableLocation, DropResult } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -23,7 +24,10 @@ export const BoardContainer = styled.div`
 
 function App() {
   const [sections, setSections] = useState<SectionI[]>([])
-
+  interface IMoveResult {
+    droppable: SectionI[]
+    droppable2: SectionI[]
+  }
   useEffect(() => {
     axios.get('http://localhost:3001/sections').then((response) => {
       // Section order is determined by ID so sort by ID
@@ -31,7 +35,14 @@ function App() {
       setSections(sortedSections)
     })
   })
+  const onDragEnd = ({}: DropResult) => {}
 
+  const move = (
+    source: SectionI[],
+    destination: SectionI[],
+    droppableSource: DraggableLocation,
+    droppableDestination: DraggableLocation
+  ): IMoveResult | any => {}
   const onCardSubmit = (sectionId: number, title: string) => {
     axios({
       method: 'post',
@@ -55,9 +66,11 @@ function App() {
 
   return (
     <BoardContainer>
-      {sections.map((section: SectionI) => {
-        return <Section section={section} onCardSubmit={onCardSubmit}></Section>
-      })}
+      <DragDropContext onDragEnd={onDragEnd}>
+        {sections.map((section: SectionI) => {
+          return <Section section={section} onCardSubmit={onCardSubmit}></Section>
+        })}
+      </DragDropContext>
     </BoardContainer>
   )
 }
