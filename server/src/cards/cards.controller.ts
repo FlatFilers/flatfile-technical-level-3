@@ -9,9 +9,10 @@ export class CardsController {
   constructor(private cardsService: CardsService) {}
 
   @Post()
-  addCard(@Body() card: { sectionId: number; title: string }): Promise<CardEntity> {
+  // FIXME: Should I split into two methods?
+  addOrUpdateCard(@Body() card: { section_id: number; title: string, id: number}): Promise<CardEntity> {
     this.logger.log('POST /cards')
 
-    return this.cardsService.create(card)
+    return this.cardsService.createOrUpdate(card)
   }
 }
