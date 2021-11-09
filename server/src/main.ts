@@ -6,8 +6,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: true,
     cors: (req, callback) => {
+      const allowList = ["http://localhost:3000"]
       callback(null, {
-        origin: req.method !== 'POST',
+        origin: req.method !== 'POST' || allowList.includes(req.header('Origin')),
         preflightContinue: false,
       })
     },
