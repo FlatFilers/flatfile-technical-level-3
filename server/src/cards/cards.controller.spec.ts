@@ -43,7 +43,7 @@ describe('CardsController', () => {
     const card = new CardEntity()
     card.title = 'test'
     card.section_id = 1
-    jest.spyOn(service, 'create').mockImplementation(() => Promise.resolve(card))
-    expect(await controller.addCard({ sectionId: 1, title: 'test' })).toBe(card)
+    jest.spyOn(service, 'createOrUpdate').mockImplementation(() => Promise.resolve(card))
+    expect(await controller.addOrUpdateCard({ section_id: 1, title: 'test', id:null })).toBe(card)
   })
 })
