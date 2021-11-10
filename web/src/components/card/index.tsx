@@ -12,11 +12,12 @@ const CardContainer = styled.div`
   min-width: 230px;
 `
 
-const CardTitle = styled.div``
-
-const Card = ({ card: { title } }: any) => (
-  <CardContainer className='card'>
+const CardTitle = styled.p``
+// TODO: pass children into data transfer so subtasks transferred
+const Card = ({ card: { id, title, section_id, childCards } }: any) => (
+  <CardContainer draggable onDragOver={(e) => { e.preventDefault() }} onDragStart={(e) => { e.dataTransfer.setData("text/plain", JSON.stringify({ id, title, section_id })) }} className='card'>
     <CardTitle>{title}</CardTitle>
+    {childCards?.length && <span>[icon here]</span>}
   </CardContainer>
 )
 

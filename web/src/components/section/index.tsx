@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 import Card from '../card'
 import SectionI from '../../types/section'
@@ -20,15 +21,55 @@ import {
 } from './styled-components'
 import CardI from '../../types/card'
 
+
 const Section = ({
   section: { id, title, cards },
-  onCardSubmit
+  onCardSubmit, 
+  setSections
 }: {
+  setSections: React.Dispatch<React.SetStateAction<any>>
   section: SectionI
   onCardSubmit: Function
 }) => {
   const [isTempCardActive, setIsTempCardActive] = useState(false)
   const [cardText, setCardText] = useState('')
+  // TODO: update to specific type
+  function handleDrop(e:any) {
+    const droppedIntoCard = e.target.closest('div').classList.contains("card")
+    const card = JSON.parse(e.dataTransfer.getData("text"))
+    const title = card.title
+    const cardId = card.id
+    const newSectionId = id
+    const prevSectionId = card.section_id
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/cards',
+      data: { section_id:newSectionId, title, id:cardId }
+    }).then((response) => {
+      // TODO: check for error and inform user if thrown
+      // This function is going to end up doing too much, break into smaller chunks
+      setSections((prevSections: SectionI[]) => {
+        let sectionsClone: SectionI[] = [...prevSections]
+        return sectionsClone.reduce((acc:any, section:any) => {
+          if(section.id === newSectionId) {
+            section.cards.push({id: cardId, title: card.title, section_id: newSectionId})
+          }
+          if (section.id === prevSectionId) {
+            section.cards = section.cards.filter((card:any) => card.id !== cardId)
+          }
+          acc.push(section)
+          return acc
+        }, [])
+      })
+  })
+}
+
+function outputCards(cards:any) {
+  const uniques = Array.from(new Set(cards));
+  console.log("uniques: ", uniques)
+  return null
+}
+outputCards(cards)
 
   return (
     <Wrapper>
@@ -36,7 +77,7 @@ const Section = ({
         <SectionHeader>
           <SectionTitle>{title}</SectionTitle>
         </SectionHeader>
-        <CardsContainer>
+        <CardsContainer onDragOver={(e) => { e.preventDefault() }} onDrop={handleDrop}>
           {cards.length &&
             cards.map((card: CardI) => {
               return <Card key={card.id} card={card}></Card>
