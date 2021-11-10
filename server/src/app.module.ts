@@ -13,6 +13,7 @@ import { SectionsService } from './sections/sections.service'
 
 @Module({
   imports: [
+    // TODO: remove information from git files for security
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'db',
