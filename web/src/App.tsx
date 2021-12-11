@@ -27,10 +27,11 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:3001/sections').then((response) => {
       // Section order is determined by ID so sort by ID
+      
       const sortedSections = response.data.sort((a: SectionI, b: SectionI) => a.id - b.id)
       setSections(sortedSections)
     })
-  })
+  }, [])
 
   const onCardSubmit = (sectionId: number, title: string) => {
     axios({
