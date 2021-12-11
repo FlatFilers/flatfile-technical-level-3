@@ -1,0 +1,17 @@
+import { Body, Controller, Logger, Post } from '@nestjs/common'
+import { BoardEntity } from '../entities/Board'
+import { BoardsService } from './boards.service'
+
+@Controller('boards')
+export class BoardsController {
+  private readonly logger = new Logger(BoardsController.name)
+
+  constructor(private boardsService: BoardsService) {}
+
+  @Post()
+  addBoard(@Body() board: { title: string }): Promise<BoardEntity> {
+    this.logger.log('POST /boards')
+
+    return this.boardsService.create(board)
+  }
+}

@@ -6,11 +6,13 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { SectionsController } from './sections/sections.controller'
 import { CardsController } from './cards/cards.controller'
+import { BoardsController } from './boards/boards.controller'
 import { CardEntity } from './entities/Card'
 import { CardsService } from './cards/cards.service'
 import { SectionEntity } from './entities/Section'
 import { SectionsService } from './sections/sections.service'
 import { BoardEntity } from './entities/Board'
+import { BoardsService } from './boards/boards.service'
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { BoardEntity } from './entities/Board'
     }),
     TypeOrmModule.forFeature([CardEntity, SectionEntity, BoardEntity]),
   ],
-  controllers: [AppController, SectionsController, CardsController],
-  providers: [AppService, CardsService, SectionsService],
+  controllers: [AppController, SectionsController, CardsController, BoardsController],
+  providers: [AppService, CardsService, SectionsService, BoardsService],
 })
 export class AppModule {}
