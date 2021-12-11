@@ -9,7 +9,7 @@ export class BoardEntity {
   @Column()
   title: string
 
-  @ManyToOne(() => CardEntity, (card) => card.board_id)
+  @ManyToOne(() => CardEntity, (card) => card)
   @JoinColumn({ name: 'board_id' })
   cards: CardEntity[]
 }

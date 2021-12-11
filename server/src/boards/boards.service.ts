@@ -15,4 +15,8 @@ export class BoardsService {
     board.title = title
     return this.boardsRepository.save(board)
   }
+
+  findAll(): Promise<BoardEntity[]> {
+    return this.boardsRepository.find()
+  }
 }
