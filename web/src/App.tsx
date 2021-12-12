@@ -44,11 +44,11 @@ function App() {
     })
   }, [])
 
-  const onCardSubmit = (sectionId: number, title: string) => {
+  const onCardSubmit = (boardId: number, sectionId: number, title: string) => {
     axios({
       method: 'post',
       url: 'http://localhost:3001/cards',
-      data: { sectionId, title }
+      data: { boardId, sectionId, title }
     }).then((response) => {
       let sectionsClone: SectionI[] = [...sections]
       for (let i = 0; i < sectionsClone.length; i++) {
@@ -57,7 +57,8 @@ function App() {
           section.cards.push({
             id: response.data.id,
             title: response.data.title,
-            section_id: sectionId
+            section_id: sectionId,
+            board_id: boardId
           })
           setSections(sectionsClone)
         }
@@ -65,8 +66,13 @@ function App() {
     })
   }
 
-  const onBoardSubmit = () => {
-    console.log('new board!')
+  const onBoardSubmit = async (title: string) => {
+    const { data } = await axios({
+      method: 'post',
+      url: 'http://localhost:3001/boards',
+      data: { title }
+    })
+    console.log('new board response!', data)
   }
 
   return (

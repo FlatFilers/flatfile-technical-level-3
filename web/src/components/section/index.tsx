@@ -62,7 +62,7 @@ const Section = ({
                   e.preventDefault()
 
                   if (cardText) {
-                    onCardSubmit(id, cardText)
+                    onCardSubmit(1, id, cardText)
                   }
 
                   setIsTempCardActive(false)

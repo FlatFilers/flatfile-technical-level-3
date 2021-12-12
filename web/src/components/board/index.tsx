@@ -18,7 +18,7 @@ import BoardI from '../../types/board'
 
 const Board = ({ onBoardSubmit, boards }: { onBoardSubmit: Function; boards: BoardI[] }) => {
   const [isTempBoardActive, setIsTempBoardActive] = useState(false)
-  const [BoardText, setBoardText] = useState('')
+  const [boardText, setBoardText] = useState('')
 
   return (
     <Wrapper>
@@ -42,8 +42,8 @@ const Board = ({ onBoardSubmit, boards }: { onBoardSubmit: Function; boards: Boa
                 onClick={(e: React.MouseEvent<HTMLElement>) => {
                   e.preventDefault()
 
-                  if (BoardText) {
-                    onBoardSubmit(BoardText)
+                  if (boardText) {
+                    onBoardSubmit(boardText)
                   }
 
                   setIsTempBoardActive(false)
