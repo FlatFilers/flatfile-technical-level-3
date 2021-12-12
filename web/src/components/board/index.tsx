@@ -11,7 +11,8 @@ import {
   SubmitBoardButtonDiv,
   WrappedSection,
   Wrapper,
-  BoardDiv
+  BoardDiv,
+  BoardsContainer
 } from './styled-components'
 
 import BoardI from '../../types/board'
@@ -31,6 +32,13 @@ const Board = ({
   return (
     <Wrapper>
       <WrappedSection>
+        <BoardsContainer>
+          {boards.map((board: BoardI) => (
+            <BoardDiv key={board.id} onClick={() => onBoardClick(board.id)}>
+              {board.title}
+            </BoardDiv>
+          ))}
+        </BoardsContainer>
         {isTempBoardActive ? (
           <BoardComposerDiv>
             <ListBoardComponent>
@@ -65,11 +73,6 @@ const Board = ({
           </AddBoardButtonDiv>
         )}
       </WrappedSection>
-      {boards.map((board: BoardI) => (
-        <BoardDiv key={board.id} onClick={() => onBoardClick(board.id)}>
-          {board.title}
-        </BoardDiv>
-      ))}
     </Wrapper>
   )
 }

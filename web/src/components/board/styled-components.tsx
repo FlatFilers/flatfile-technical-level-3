@@ -2,22 +2,22 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   display: inline-block;
+  overflow-x: scroll;
   height: 100%;
+  width: 100%;
   vertical-align: top;
   white-space: normal;
+  background-color: #e3e3e3;
 `
 
 export const WrappedSection = styled.section`
-  width: 280px;
-  background-color: #e3e3e3;
+  width: 100%;
   border-radius: 3px;
-  margin: 5px 5px;
-  padding: 10px;
+  margin: 5px;
+  padding: 10px 0;
   position: relative;
-  display: inline-flex;
   height: auto;
   max-height: 90%;
-  flex-direction: column;
 `
 
 export const SectionHeader = styled.header`
@@ -34,16 +34,29 @@ export const SectionTitle = styled.span`
 `
 
 export const BoardsContainer = styled.div`
-  flex: 1;
-  overflow-y: auto;
-  align-self: center;
-  max-height: 90vh;
+  display: flex;
   margin-top: 10px;
-  flex-direction: column;
-  justify-content: space-between;
+`
+
+export const BoardDiv = styled.div`
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+  min-width: 280px;
+  min-height: 50px;
+  padding: 10px;
+  margin: 5px;
+  :hover {
+    background-color: rgba(9, 30, 66, 0.08);
+    color: #172b4d;
+  }
 `
 
 export const AddBoardButtonDiv = styled.div`
+  padding: 10px;
   min-height: 24px;
   max-height: 24px;
   cursor: pointer;
@@ -77,7 +90,6 @@ export const ListBoardDetails = styled.div`
   overflow: hidden;
   padding: 6px 8px 2px;
   position: relative;
-  z-index: 10;
 `
 
 export const ListBoardTextArea = styled.textarea`
@@ -91,7 +103,6 @@ export const ListBoardTextArea = styled.textarea`
   margin-bottom: 4px;
   max-height: 162px;
   min-height: 54px;
-  padding: 0;
   width: 100%;
   font-size: 14px;
   line-height: 20px;
@@ -110,8 +121,4 @@ export const SubmitBoardButton = styled.input`
   color: #fff;
   height: 100%;
   cursor: pointer;
-`
-
-export const BoardDiv = styled.div`
-  background: red;
 `
