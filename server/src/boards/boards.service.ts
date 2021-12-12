@@ -17,6 +17,6 @@ export class BoardsService {
   }
 
   findAll(): Promise<BoardEntity[]> {
-    return this.boardsRepository.find()
+    return this.boardsRepository.find({ select: ["title", "id"] })
   }
 }
