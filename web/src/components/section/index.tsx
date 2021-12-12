@@ -39,7 +39,7 @@ const Section = ({
           <SectionTitle>{title}</SectionTitle>
         </SectionHeader>
         <CardsContainer>
-          {cards.length &&
+          {!!cards.length &&
             cards.map((card: CardI) => {
               if (card.board_id === boardId) {
                 return <Card key={card.id} card={card}></Card>
