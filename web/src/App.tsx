@@ -34,17 +34,14 @@ function App() {
   const [boardId, setBoardId] = useState<Number>(0)
 
   useEffect(() => {
-    axios.get('http://localhost:3001/sections').then((response: any) => {
-      // Section order is determined by ID so sort by ID
-
-      const sortedSections = response.data.sort((a: SectionI, b: SectionI) => a.id - b.id)
-      setSections(sortedSections)
-    })
-
-    axios.get('http://localhost:3001/boards').then(({ data }: any) => {
-      const sortedBoards = data.sort((a: BoardI, b: BoardI) => a.id - b.id)
-      setBoards(sortedBoards)
-    })
+    ;(async () => {
+      const [sections, boards] = await Promise.all([
+        axios.get('http://localhost:3001/sections'),
+        axios.get('http://localhost:3001/boards')
+      ])
+      setSections(sections.data)
+      setBoards(boards.data)
+    })()
   }, [])
 
   const onCardSubmit = (boardId: number, sectionId: number, title: string) => {
