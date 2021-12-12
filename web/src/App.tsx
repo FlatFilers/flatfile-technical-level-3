@@ -8,8 +8,6 @@ import SectionI from './types/section'
 import Board from './components/board'
 import BoardI from './types/board'
 
-import CardI from './types/card'
-
 import './App.css'
 
 export const Wrapper = styled.div``
