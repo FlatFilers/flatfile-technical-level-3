@@ -5,6 +5,8 @@ import axios from 'axios'
 import Section from './components/section'
 import SectionI from './types/section'
 
+import Board from './types/board'
+
 import './App.css'
 
 export const BoardContainer = styled.div`
@@ -23,6 +25,7 @@ export const BoardContainer = styled.div`
 
 function App() {
   const [sections, setSections] = useState<SectionI[]>([])
+  const [boards, setBoards] = useState<Board[]>([])
 
   useEffect(() => {
     axios.get('http://localhost:3001/sections').then((response) => {
@@ -30,6 +33,11 @@ function App() {
       
       const sortedSections = response.data.sort((a: SectionI, b: SectionI) => a.id - b.id)
       setSections(sortedSections)
+    })
+
+    axios.get('http://localhost:3001/boards').then(({data}) => {
+      const sortedBoards = data.sort((a: Board, b: Board) => a.id - b.id)
+      setBoards(sortedBoards)
     })
   }, [])
 
@@ -56,6 +64,12 @@ function App() {
 
   return (
     <BoardContainer>
+      <h1>Boards</h1>
+      {boards.map((board: Board) => {
+        return <div key={board.id}>{board.title}</div>
+      })}
+
+      <h1>Sections</h1>
       {sections.map((section: SectionI) => {
         return <Section key={section.id} section={section} onCardSubmit={onCardSubmit}></Section>
       })}
