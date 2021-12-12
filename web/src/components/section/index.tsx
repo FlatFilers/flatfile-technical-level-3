@@ -22,10 +22,12 @@ import CardI from '../../types/card'
 
 const Section = ({
   section: { id, title, cards },
-  onCardSubmit
+  onCardSubmit,
+  boardId
 }: {
   section: SectionI
   onCardSubmit: Function
+  boardId: Number
 }) => {
   const [isTempCardActive, setIsTempCardActive] = useState(false)
   const [cardText, setCardText] = useState('')
@@ -39,7 +41,10 @@ const Section = ({
         <CardsContainer>
           {cards.length &&
             cards.map((card: CardI) => {
-              return <Card key={card.id} card={card}></Card>
+              if (card.board_id === boardId) {
+                return <Card key={card.id} card={card}></Card>
+              }
+              return null
             })}
         </CardsContainer>
         {isTempCardActive ? (
@@ -62,7 +67,7 @@ const Section = ({
                   e.preventDefault()
 
                   if (cardText) {
-                    onCardSubmit(1, id, cardText)
+                    onCardSubmit(boardId, id, cardText)
                   }
 
                   setIsTempCardActive(false)

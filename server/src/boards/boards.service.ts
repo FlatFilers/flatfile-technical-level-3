@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { BoardEntity } from '../entities/Board'
+import { CardEntity } from '../entities/Card'
 import { Repository } from 'typeorm'
 
 @Injectable()
@@ -16,7 +17,15 @@ export class BoardsService {
     return this.boardsRepository.save(board)
   }
 
+  findByBoard(): Promise<BoardEntity[]> {
+    return this.boardsRepository.find({ relations: ['cards'] })
+  }
+
   findAll(): Promise<BoardEntity[]> {
-    return this.boardsRepository.find({ select: ["title", "id"] })
+    return this.boardsRepository.find({ select: ['title', 'id'] })
   }
 }
+
+// SELECT * FROM cards
+// JOIN boards
+// WHERE cards.board_id = boards.id

@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post, Get } from '@nestjs/common'
+import { Body, Controller, Logger, Post, Get, } from '@nestjs/common'
 import { BoardEntity } from '../entities/Board'
 import { BoardsService } from './boards.service'
 

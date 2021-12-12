@@ -8,6 +8,8 @@ import SectionI from './types/section'
 import Board from './components/board'
 import BoardI from './types/board'
 
+import CardI from './types/card'
+
 import './App.css'
 
 export const Wrapper = styled.div``
@@ -29,6 +31,7 @@ export const BoardContainer = styled.div`
 function App() {
   const [sections, setSections] = useState<SectionI[]>([])
   const [boards, setBoards] = useState<BoardI[]>([])
+  const [boardId, setBoardId] = useState<Number>(0)
 
   useEffect(() => {
     axios.get('http://localhost:3001/sections').then((response: any) => {
@@ -45,6 +48,7 @@ function App() {
   }, [])
 
   const onCardSubmit = (boardId: number, sectionId: number, title: string) => {
+    console.log(boardId, sectionId, title)
     axios({
       method: 'post',
       url: 'http://localhost:3001/cards',
@@ -66,21 +70,37 @@ function App() {
     })
   }
 
+  const onBoardClick = async (id: number) => {
+    // Ideally, here I would retrieve from the server the cards
+    // that correspond with the board the user clicked on
+    // const { data } = await axios(`http://localhost:3001/cards/${id}`)
+    setBoardId(id)
+  }
+
   const onBoardSubmit = async (title: string) => {
     const { data } = await axios({
       method: 'post',
       url: 'http://localhost:3001/boards',
       data: { title }
     })
-    console.log('new board response!', data)
+    let boardsClone: BoardI[] = [...boards]
+    boardsClone.push(data)
+    setBoards(boardsClone)
   }
 
   return (
     <Wrapper>
-      <Board onBoardSubmit={onBoardSubmit} boards={boards}></Board>
+      <Board onBoardClick={onBoardClick} onBoardSubmit={onBoardSubmit} boards={boards}></Board>
       <BoardContainer>
         {sections.map((section: SectionI) => {
-          return <Section key={section.id} section={section} onCardSubmit={onCardSubmit}></Section>
+          return (
+            <Section
+              key={section.id}
+              boardId={boardId}
+              section={section}
+              onCardSubmit={onCardSubmit}
+            ></Section>
+          )
         })}
       </BoardContainer>
     </Wrapper>

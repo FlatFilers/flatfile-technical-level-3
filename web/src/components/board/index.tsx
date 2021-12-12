@@ -16,7 +16,15 @@ import {
 
 import BoardI from '../../types/board'
 
-const Board = ({ onBoardSubmit, boards }: { onBoardSubmit: Function; boards: BoardI[] }) => {
+const Board = ({
+  onBoardClick,
+  onBoardSubmit,
+  boards
+}: {
+  onBoardClick: Function
+  onBoardSubmit: Function
+  boards: BoardI[]
+}) => {
   const [isTempBoardActive, setIsTempBoardActive] = useState(false)
   const [boardText, setBoardText] = useState('')
 
@@ -58,7 +66,9 @@ const Board = ({ onBoardSubmit, boards }: { onBoardSubmit: Function; boards: Boa
         )}
       </WrappedSection>
       {boards.map((board: BoardI) => (
-        <BoardDiv key={board.id}>{board.title}</BoardDiv>
+        <BoardDiv key={board.id} onClick={() => onBoardClick(board.id)}>
+          {board.title}
+        </BoardDiv>
       ))}
     </Wrapper>
   )
