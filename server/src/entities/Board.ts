@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, JoinColumn, OneToMany } from 'typeorm'
+import { CardEntity } from './Card'
 
 @Entity({ name: 'boards' })
 export class BoardEntity {
@@ -7,4 +8,8 @@ export class BoardEntity {
 
   @Column()
   title: string
+
+  @OneToMany(() => CardEntity, (card) => card.board)
+  @JoinColumn({ referencedColumnName: 'board_id' })
+  cards: CardEntity[]
 }

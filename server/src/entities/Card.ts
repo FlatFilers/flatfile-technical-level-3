@@ -20,7 +20,7 @@ export class CardEntity {
   @JoinColumn({ name: 'section_id' })
   section: SectionEntity
 
-  @ManyToOne(() => BoardEntity, (board) => board)
+  @ManyToOne(() => BoardEntity, (board) => board.cards)
   @JoinColumn({ name: 'board_id' })
   board: BoardEntity
 }
