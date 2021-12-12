@@ -48,7 +48,6 @@ function App() {
   }, [])
 
   const onCardSubmit = (boardId: number, sectionId: number, title: string) => {
-    console.log(boardId, sectionId, title)
     axios({
       method: 'post',
       url: 'http://localhost:3001/cards',
@@ -64,9 +63,9 @@ function App() {
             section_id: sectionId,
             board_id: boardId
           })
-          setSections(sectionsClone)
         }
       }
+      setSections(sectionsClone)
     })
   }
 
@@ -83,6 +82,7 @@ function App() {
       url: 'http://localhost:3001/boards',
       data: { title }
     })
+
     let boardsClone: BoardI[] = [...boards]
     boardsClone.push(data)
     setBoards(boardsClone)
