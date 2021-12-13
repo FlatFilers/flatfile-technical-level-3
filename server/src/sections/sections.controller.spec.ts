@@ -38,4 +38,11 @@ describe('SectionController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined()
   })
+
+  it('should call findAll on sections repository', async () => {
+    const section = new SectionEntity()
+    section.title = 'Backlog'
+    jest.spyOn(service, 'findAll').mockImplementation(() => Promise.resolve([section]))
+    expect(await controller.getAllSections()).toStrictEqual([section])
+  })
 })

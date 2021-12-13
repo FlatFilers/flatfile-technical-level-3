@@ -16,9 +16,9 @@ export class BoardsService {
     return this.boardsRepository.save(board)
   }
 
-  findByBoard(): Promise<BoardEntity[]> {
-    return this.boardsRepository.find({ relations: ['cards'] })
-  }
+  // findByBoard(): Promise<BoardEntity[]> {
+  //   return this.boardsRepository.find({ relations: ['cards'] })
+  // }
 
   findAll(): Promise<BoardEntity[]> {
     return this.boardsRepository.find({ select: ['title', 'id'] })

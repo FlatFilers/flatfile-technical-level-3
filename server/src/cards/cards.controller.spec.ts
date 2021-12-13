@@ -44,6 +44,15 @@ describe('CardsController', () => {
     card.title = 'test'
     card.section_id = 1
     jest.spyOn(service, 'create').mockImplementation(() => Promise.resolve(card))
-    expect(await controller.addCard({ sectionId: 1, title: 'test' })).toBe(card)
+    expect(await controller.addCard({ boardId: 1, sectionId: 1, title: 'test' })).toBe(card)
+  })
+
+  it('should call findByBoard on cards repository', async () => {
+    const card = new CardEntity()
+    card.title = 'test'
+    card.section_id = 1
+    card.board_id = 1
+    jest.spyOn(service, 'findByBoard').mockImplementation(() => Promise.resolve([card]))
+    expect(await controller.getCardsByBoard('1')).toStrictEqual([card])
   })
 })
