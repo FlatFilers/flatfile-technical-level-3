@@ -25,7 +25,3 @@ export class BoardsService {
     return this.boardsRepository.find({ select: ['title', 'id'] })
   }
 }
-
-// SELECT * FROM cards
-// JOIN boards
-// WHERE cards.board_id = boards.id
