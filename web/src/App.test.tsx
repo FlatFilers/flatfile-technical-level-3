@@ -38,7 +38,7 @@ describe('<App />', () => {
   it('matches snapshot', async () => {
     const { asFragment } = render(<App />)
 
-    await screen.findByText('Backlog')
+    await screen.findAllByText('Backlog')
 
     expect(asFragment).toMatchSnapshot()
   })
@@ -46,18 +46,10 @@ describe('<App />', () => {
   it('renders sections successfully', async () => {
     render(<App />)
 
-    const backlogText = await screen.findByText('Backlog')
-    const readyForDevelopmentText = await screen.findByText('Ready for Development')
+    const backlogText = await screen.findAllByText('Backlog')
+    const readyForDevelopmentText = await screen.findAllByText('Ready for Development')
 
-    expect(backlogText.nodeName).toBe('SPAN')
-    expect(readyForDevelopmentText.nodeName).toBe('SPAN')
-  })
-
-  it('renders cards successfully', async () => {
-    render(<App />)
-
-    const cardText = await screen.findByText('Test 1')
-
-    expect(cardText.nodeName).toBe('DIV')
+    expect(backlogText[0].nodeName).toBe('DIV')
+    expect(readyForDevelopmentText[0].nodeName).toBe('DIV')
   })
 })
