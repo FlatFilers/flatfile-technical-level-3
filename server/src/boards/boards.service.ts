@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { BoardEntity } from '../entities/Board'
-import { CardEntity } from '../entities/Card'
 import { Repository } from 'typeorm'
 
 @Injectable()
