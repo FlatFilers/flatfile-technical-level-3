@@ -7,7 +7,6 @@ async function bootstrap() {
     logger: true,
     cors: (req, callback) => {
       callback(null, {
-        origin: req.method !== 'POST',
         preflightContinue: false,
       })
     },

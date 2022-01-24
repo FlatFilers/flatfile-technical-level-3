@@ -1,65 +1,35 @@
-import { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import './App.css'
+import Board from './components/board'
+import BoardPicker from './components/board-picker'
+import { useEffect, useState } from 'react'
+import BoardI from './types/board'
 import axios from 'axios'
-
-import Section from './components/section'
 import SectionI from './types/section'
 
-import './App.css'
-
-export const BoardContainer = styled.div`
-  background-color: rgb(49, 121, 186);
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  color: #393939;
-  overflow-y: hidden;
-  overflow-x: auto;
-  position: absolute;
-  padding: 5px;
-  align-items: flex-start;
-`
-
 function App() {
-  const [sections, setSections] = useState<SectionI[]>([])
+  // const [boardUpdated] = useState<boolean>(false)
+  const [selectedBoard, setSelectedBoard] = useState<BoardI>()
+  const [boards, setBoards] = useState<BoardI[]>([])
 
   useEffect(() => {
-    axios.get('http://localhost:3001/sections').then((response) => {
+    axios.get('http://localhost:3001/boards').then((response) => {
+      let displayedSections = response.data[0].sections
       // Section order is determined by ID so sort by ID
-      const sortedSections = response.data.sort((a: SectionI, b: SectionI) => a.id - b.id)
-      setSections(sortedSections)
+      const sortedSections = displayedSections.sort((a: SectionI, b: SectionI) => a.id - b.id)
+      response.data[0].sections = sortedSections
+      setBoards(response.data)
     })
-  })
+  }, [selectedBoard])
 
-  const onCardSubmit = (sectionId: number, title: string) => {
-    axios({
-      method: 'post',
-      url: 'http://localhost:3001/cards',
-      data: { sectionId, title }
-    }).then((response) => {
-      let sectionsClone: SectionI[] = [...sections]
-      for (let i = 0; i < sectionsClone.length; i++) {
-        let section: SectionI = sectionsClone[i]
-        if (section.id == sectionId) {
-          section.cards.push({
-            id: response.data.id,
-            title: response.data.title,
-            section_id: sectionId
-          })
-          setSections(sectionsClone)
-        }
-      }
-    })
+  const onBoardSubmit = (board: BoardI) => {
+    setSelectedBoard(board)
   }
 
-  return (
-    <BoardContainer>
-      {sections.map((section: SectionI) => {
-        return <Section section={section} onCardSubmit={onCardSubmit}></Section>
-      })}
-    </BoardContainer>
-  )
+  if (selectedBoard != null) {
+    return <Board board={selectedBoard} />
+  } else {
+    return <BoardPicker onBoardSubmit={onBoardSubmit} boards={boards} />
+  }
 }
 
 export default App

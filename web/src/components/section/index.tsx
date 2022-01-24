@@ -37,9 +37,10 @@ const Section = ({
           <SectionTitle>{title}</SectionTitle>
         </SectionHeader>
         <CardsContainer>
-          {cards.length &&
+          {cards &&
+            cards.length &&
             cards.map((card: CardI) => {
-              return <Card key={card.id} card={card}></Card>
+              return <Card key={card.id} card={card} />
             })}
         </CardsContainer>
         {isTempCardActive ? (

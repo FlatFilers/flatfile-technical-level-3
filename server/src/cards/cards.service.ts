@@ -11,7 +11,7 @@ export class CardsService {
   ) {}
 
   create({ sectionId, title }: { sectionId: number; title: string }): Promise<CardEntity> {
-    let card = new CardEntity()
+    const card = new CardEntity()
     card.title = title
     card.section_id = sectionId
     return this.cardsRepository.save(card)
