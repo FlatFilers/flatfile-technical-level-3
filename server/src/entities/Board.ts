@@ -9,7 +9,7 @@ export class BoardEntity {
   @Column()
   title: string
 
-  @OneToMany(() => SectionEntity, (section) => section.board)
+  @OneToMany(() => SectionEntity, (section) => section.board, { cascade: true })
   @JoinColumn({ referencedColumnName: 'board_id' })
   sections: SectionEntity[]
 }

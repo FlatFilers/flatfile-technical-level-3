@@ -1,6 +1,6 @@
 import SectionI from '../../types/section'
 import Section from '../section'
-import { BoardContainer } from './styled-components'
+import { BoardContainer, BoardName } from './styled-components'
 import axios from 'axios'
 import BoardI from '../../types/board'
 
@@ -29,7 +29,7 @@ const Board = ({ board }: { board: BoardI }) => {
 
   return (
     <BoardContainer>
-      <div>{board && board.title}</div>
+      <BoardName>{board && board.title}</BoardName>
       {board.sections &&
         board.sections.length > 0 &&
         board.sections.map((section: SectionI) => {

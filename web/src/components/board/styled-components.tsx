@@ -13,3 +13,8 @@ export const BoardContainer = styled.div`
   padding: 5px;
   align-items: flex-start;
 `
+export const BoardName = styled.div`
+  padding: 10px;
+  margin: 5px;
+  background-color: #e3e3e3;
+`

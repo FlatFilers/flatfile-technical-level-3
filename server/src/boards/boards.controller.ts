@@ -14,4 +14,11 @@ export class BoardsController {
 
     return this.boardsService.findAll()
   }
+
+  @Post()
+  addBoard(@Body() title: { boardTitle: string }): Promise<BoardEntity> {
+    this.logger.log('POST /boards')
+    console.log(title)
+    return this.boardsService.createWithTitle(title.boardTitle)
+  }
 }
