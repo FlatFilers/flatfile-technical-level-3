@@ -16,7 +16,6 @@ export class BoardsService {
   }
 
   createWithTitle(title: string): Promise<BoardEntity> {
-    console.log(title)
     const board = new BoardEntity()
     board.title = title
     const backlogSection = new SectionEntity()
