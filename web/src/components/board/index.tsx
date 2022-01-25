@@ -11,7 +11,6 @@ const Board = ({ board }: { board: BoardI }) => {
       url: 'http://localhost:3001/cards',
       data: { sectionId, title }
     }).then((response) => {
-      console.log('running thins')
       let sections: SectionI[] = board.sections
       for (let i = 0; i < sections.length; i++) {
         let section: SectionI = sections[i]

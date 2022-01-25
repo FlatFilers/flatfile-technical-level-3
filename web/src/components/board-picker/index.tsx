@@ -17,9 +17,7 @@ const BoardPicker = ({ boards, onBoardSubmit }: { boards: BoardI[]; onBoardSubmi
       method: 'post',
       url: 'http://localhost:3001/boards',
       data: { boardTitle }
-    }).then((response) => {
-      console.log('running thins')
-    })
+    }).then((response) => {})
   }
 
   return (
