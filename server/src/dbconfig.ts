@@ -7,6 +7,7 @@ export default {
   database: 'technical',
   entities: ['./entities/*.ts'],
   migrations: ['./migrations/*.ts'],
+ // migrationsTableName: "migrations",
   cli: {
     migrationsDir: 'migrations',
   },

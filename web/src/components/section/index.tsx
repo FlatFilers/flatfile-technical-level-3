@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Card from '../card'
 import SectionI from '../../types/section'
 
+
 import {
   AddCardButtonDiv,
   AddCardButtonSpan,
@@ -20,15 +21,27 @@ import {
 } from './styled-components'
 import CardI from '../../types/card'
 
-const Section = ({
+interface SectionProps {
+  section: SectionI;
+  openModal: (card: CardI) => void; // Define openModal prop
+  onCardSubmit: Function;
+}
+
+
+const Section: React.FC<SectionProps>= ({
   section: { id, title, cards },
+  openModal,
   onCardSubmit
 }: {
-  section: SectionI
+  section: SectionI,
+  openModal: any,
   onCardSubmit: Function
 }) => {
   const [isTempCardActive, setIsTempCardActive] = useState(false)
   const [cardText, setCardText] = useState('')
+  const [cardDescription, setcardDescription] = useState('')
+  
+
 
   return (
     <Wrapper>
@@ -39,7 +52,10 @@ const Section = ({
         <CardsContainer>
           {cards.length &&
             cards.map((card: CardI) => {
-              return <Card key={card.id} card={card}></Card>
+              return <Card key={card.id} card={card} onEditClick={() => {
+                openModal(card);
+                console.log("Edit button clicked", card);
+              }}></Card>
             })}
         </CardsContainer>
         {isTempCardActive ? (
@@ -52,6 +68,13 @@ const Section = ({
                     setCardText(e.target.value)
                   }
                 />
+                <ListCardTextArea
+                placeholder='Enter a Description for the new card'
+                  onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                    setcardDescription(e.target.value)
+                  }
+                />
+                
               </ListCardDetails>
             </ListCardComponent>
             <SubmitCardButtonDiv>
@@ -62,7 +85,7 @@ const Section = ({
                   e.preventDefault()
 
                   if (cardText) {
-                    onCardSubmit(id, cardText)
+                    onCardSubmit(id, cardText, cardDescription)
                   }
 
                   setIsTempCardActive(false)

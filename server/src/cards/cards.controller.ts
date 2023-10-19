@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post } from '@nestjs/common'
+import { Body, Controller, Logger, Post, Put } from '@nestjs/common'
 import { CardEntity } from '../entities/Card'
 import { CardsService } from './cards.service'
 
@@ -9,9 +9,16 @@ export class CardsController {
   constructor(private cardsService: CardsService) {}
 
   @Post()
-  addCard(@Body() card: { sectionId: number; title: string }): Promise<CardEntity> {
+  addCard(@Body() card: { sectionId: number; title: string; description:string }): Promise<CardEntity> {
     this.logger.log('POST /cards')
 
     return this.cardsService.create(card)
+  }
+  @Put()
+  updateCard(@Body() card: { id: number; sectionId: number; title: string; description:string; image1: string; image2:string; image3:string }): Promise<CardEntity> {
+    this.logger.log('PUT /cards')
+
+
+    return this.cardsService.update(card)
   }
 }

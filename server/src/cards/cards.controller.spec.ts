@@ -44,6 +44,6 @@ describe('CardsController', () => {
     card.title = 'test'
     card.section_id = 1
     jest.spyOn(service, 'create').mockImplementation(() => Promise.resolve(card))
-    expect(await controller.addCard({ sectionId: 1, title: 'test' })).toBe(card)
+    expect(await controller.addCard({ sectionId: 1, title: 'test', description: "lala" })).toBe(card)
   })
 })

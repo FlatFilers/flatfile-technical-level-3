@@ -20,6 +20,7 @@ describe('<App />', () => {
             {
               id: 1,
               title: 'Test 1',
+              description: 'test description',
               section_id: 1
             }
           ]
